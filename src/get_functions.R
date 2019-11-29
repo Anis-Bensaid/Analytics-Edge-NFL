@@ -75,7 +75,7 @@ get_distribution = function(predictions){
   t(apply(predictions, 1, cumsum))
 }
 
-get_score = function(true_labels, distribution){
-  mean(rowMeans((distribution - true_labels)^2))
+get_score = function(distribution, heaviside){
+  mean(rowMeans((distribution - heaviside)^2))
 }
 

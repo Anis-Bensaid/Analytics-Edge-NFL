@@ -7,17 +7,17 @@ source("get_functions.R")
 train_full <- read.csv("../data/train_data.csv")
 test_full <- read.csv("../data/test_data.csv")
 
-train_subset = 1:50000
-test_subset = 1:10000
-train <- train_full[subset,]
-test <- test_full[subset,]
-nfolds=2
+train_subset = 1:1000
+test_subset = 1:500
+train <- train_full[train_subset,]
+test <- test_full[test_subset,]
+nfolds <- 2
 metric <- "Accuracy"
 method <- "rpart"
 tuneGrid <- expand.grid(cp = c(0.001, 0.005))
 trControl <- trainControl(method='cv', number=nfolds)
 tuneLength = 4
-thresh_hold = 0
+thresh_hold <- 0
 model_name <- "CART"
 
 
