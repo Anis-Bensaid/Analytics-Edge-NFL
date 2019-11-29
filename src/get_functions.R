@@ -79,3 +79,48 @@ get_score = function(distribution, heaviside){
   mean(rowMeans((distribution - heaviside)^2))
 }
 
+# Plot distribution and heaviside together for a given row i in the data
+plot_d_h <- function(distrib, heavy, i, yards=-99:99) {
+  ggplot() +
+    geom_line(aes(y=distrib[i,], x=yards, color="Distribution")) +
+    geom_line(aes(y=heaviside[i,], x=yards, color="Heaviside")) +
+    labs(title="CDF and Heaviside Function", x="Yards", y="Probability", color="Function") +
+    theme(plot.title = element_text(hjust=0.5),
+          axis.title=element_text(size=14), axis.text=element_text(size=12), legend.text=element_text(size=14), 
+          title=element_text(size=15))
+}
+
+# Plot distribution data alone
+# This can be the average distribution over all rows, or just for a single row i
+ plot_distrib <- function(distrib, i=1, yards=-99:99, mean=FALSE){
+   if (mean==FALSE){
+     ggplot() +
+       geom_line(aes(y=distrib[i,], x=yards)) +
+       labs(title=paste("CDF for Row", toString(i), sep=" "), x="Yards", y="CDF") +
+       theme(plot.title = element_text(hjust=0.5),
+             axis.title=element_text(size=14), axis.text=element_text(size=12), legend.text=element_text(size=14), 
+             title=element_text(size=15))
+   } else {
+     ggplot()+
+       geom_line(aes(y=colMeans(distrib), x=yards)) +
+       labs(title="Average CDF over all Rows", x="Yards", y="CDF") +
+       theme(plot.title = element_text(hjust=0.5),
+             axis.title=element_text(size=14), axis.text=element_text(size=12), legend.text=element_text(size=14), 
+             title=element_text(size=15))
+   }
+ }
+ 
+ # Plot heavyside alone for a single row i
+ plot_heavy <- function(heavy, i, yards=-99:99) {
+   ggplot()+
+     geom_line(aes(y=heavy[i,], x=yards)) +
+     labs(title=paste("Heaviside for Row", toString(i), sep=" "), x="Yards", y="Heaviside", color="Function") +
+     theme(plot.title = element_text(hjust=0.5),
+           axis.title=element_text(size=14), axis.text=element_text(size=12), legend.text=element_text(size=14), 
+           title=element_text(size=15))
+ }
+
+
+
+
+
