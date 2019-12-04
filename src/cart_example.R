@@ -34,3 +34,4 @@ heaviside = get_distribution(true_labels)
 score = get_score(heaviside, distribution)
 score
 
+plot_d_h(distribution, heaviside, 2, yards=-99:99)
