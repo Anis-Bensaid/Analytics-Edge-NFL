@@ -4,6 +4,7 @@ library(e1071)
 
 source("get_functions.R")
 
+
 train_full <- read.csv("../data/train_data.csv")
 test_full <- read.csv("../data/test_data.csv")
 
@@ -15,6 +16,7 @@ nfolds <- 2
 metric <- "Accuracy"
 method <- "rpart"
 tuneGrid <- expand.grid(cp = c(0.001, 0.005))
+tuneGrid <- 
 trControl <- trainControl(method='cv', number=nfolds)
 tuneLength = 4
 thresh_hold <- 0
@@ -32,6 +34,6 @@ true_labels = test %>% select(contains("Yard_"))
 heaviside = get_distribution(true_labels)
 
 score = get_score(heaviside, distribution)
-score
+print(score)
 
 plot_d_h(distribution, heaviside, 2, yards=-99:99)

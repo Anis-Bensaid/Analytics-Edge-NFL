@@ -1,9 +1,7 @@
 generate_formula <- function(dataframe, i) {
   col_names <- colnames(dataframe)
-  
   x_colnames <- c()
   predict_cols <- c()
-  
   for (name in colnames(dataframe)) {
     if (grepl(paste("Pred_", toString(i), sep=""), name)) {
       predict_cols <- append(predict_cols, name)
@@ -11,7 +9,6 @@ generate_formula <- function(dataframe, i) {
       x_colnames <- append(x_colnames, name)
     }
   }
-  
   formula_string <- paste(paste("factor(Yard_", toString(i), sep=""), ") ~", paste(x_colnames, collapse=" + "))
   if (!is_empty(predict_cols)) {
     formula_string <- paste(formula_string, "+", paste(predict_cols, collapse=" + "))
@@ -36,7 +33,8 @@ train_models = function(data, method, metric="Accuracy", tuneGrid=NULL, trContro
                    method = method, 
                    tuneGrid = tuneGrid, 
                    trControl= trControl,
-                   tuneLength = tuneLength
+                   tuneLength = tuneLength,
+                   na.action = na.exclude
       )
       models[[i]] = mod
       print(paste("Model", toString(i), "trained."))
@@ -119,8 +117,6 @@ plot_d_h <- function(distrib, heavy, i, yards=-99:99) {
            axis.title=element_text(size=14), axis.text=element_text(size=12), legend.text=element_text(size=14), 
            title=element_text(size=15))
  }
-
-
 
 
 
